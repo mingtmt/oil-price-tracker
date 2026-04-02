@@ -10,7 +10,8 @@ app = FastAPI(title="Oil Price Tracker API")
 # CẤU HÌNH CORS (Rất quan trọng để React gọi được API)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # Trong thực tế nên giới hạn domain của React
+    allow_origins=["http://localhost:5173"],
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )

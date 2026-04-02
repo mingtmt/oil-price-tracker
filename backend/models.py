@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Date, DateTime
+from sqlalchemy import Column, Integer, String, Date, DateTime, UniqueConstraint
 from datetime import datetime
 from .database import Base
 
@@ -17,5 +17,5 @@ class FuelPrice(Base):
     # Ràng buộc: Một sản phẩm trong một ngày chỉ có một bản ghi duy nhất
     # Điều này cực kỳ quan trọng để tránh trùng lặp dữ liệu (Idempotency)
     __table_args__ = (
-        {"sqlite_autoincrement": True}, # Nếu dùng sqlite
+        UniqueConstraint('product_name', 'updated_date', name='_product_date_uc'),
     )

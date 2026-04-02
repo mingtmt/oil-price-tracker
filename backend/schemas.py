@@ -13,4 +13,5 @@ class FuelPrice(FuelPriceBase):
     created_at: datetime
 
     class Config:
-        from_attributes = True # Cho phép Pydantic làm việc với SQLAlchemy models
+        from_attributes = True
+        
