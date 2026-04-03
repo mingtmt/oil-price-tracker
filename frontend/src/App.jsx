@@ -3,6 +3,7 @@ import api from './api/axios';
 import PriceCard from './components/PriceCard';
 import HistoryChart from './components/HistoryChart';
 import { LayoutDashboard, RefreshCcw } from 'lucide-react';
+import GasStation from './components/GasStation';
 
 function App() {
   const [latest, setLatest] = useState([]);
@@ -52,7 +53,7 @@ function App() {
             <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
               <LayoutDashboard className="text-blue-600" /> Petrol Price Insight
             </h1>
-            <p className="text-gray-500 text-sm">Dashboard dành cho điều phối vận tải biển & bộ</p>
+            <p className="text-gray-500 text-sm">Dashboard theo dõi giá xăng dầu Việt Nam</p>
           </div>
           <button 
             onClick={fetchData}
@@ -62,6 +63,7 @@ function App() {
           </button>
         </header>
 
+        {/* Price Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
           {latest.map(item => (
             <PriceCard 
@@ -73,19 +75,21 @@ function App() {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2">
-            <HistoryChart 
-              data={history} 
-              title={selected?.product_name || "Đang tải..."} 
-            />
-          </div>
-          <div className="lg:col-span-1">
-            {/* Đây là nơi chúng ta sẽ đặt Logistics Calculator ở bước sau */}
-            <div className="bg-white p-6 rounded-2xl border border-dashed border-gray-300 h-full flex items-center justify-center text-gray-400">
-              Phần tính toán chi phí vận tải (Sắp ra mắt)
-            </div>
-          </div>
+        {/* History Chart */}
+        <div>
+          {loading ? (
+              <div className="flex items-center justify-center h-full">Đang tải biểu đồ...</div>
+            ) : (
+              <HistoryChart 
+                data={history} 
+                title={selected?.product_name} 
+              />
+          )}
+        </div>
+
+        {/* Gas Station */}
+        <div className="mt-10 border border-dashed border-gray-300 rounded-2xl">
+          <GasStation crawledPrices={latest} />
         </div>
       </div>
     </div>

@@ -3,12 +3,12 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 
 const HistoryChart = ({ data, title }) => {
   return (
-    <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm h-[450px]">
+    <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm h-[450px] w-full">
       <div className="flex justify-between items-center mb-6">
         <h3 className="text-lg font-bold text-gray-800">Phân tích chênh lệch Vùng 1 & 2: {title}</h3>
       </div>
       
-      <ResponsiveContainer width="100%" height="90%">
+      <ResponsiveContainer width="100%" height="100%">
         <LineChart data={data} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />
           <XAxis 
