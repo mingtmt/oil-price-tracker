@@ -106,14 +106,15 @@ def run_crawler():
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
 
-    chrome_bin = os.getenv("CHROME_BIN")
-    if chrome_bin:
-        chrome_options.binary_location = chrome_bin
-
-    driver = webdriver.Chrome(
-        service=Service(os.getenv("CHROMEDRIVER_BIN", ChromeDriverManager().install())), 
-        options=chrome_options
-    )
+    driver_path = os.getenv("CHROMEDRIVER_BIN")
+    
+    if driver_path and os.path.exists(driver_path):
+        service = Service(driver_path)
+    else:
+        from webdriver_manager.chrome import ChromeDriverManager
+        service = Service(ChromeDriverManager().install())
+        
+    driver = webdriver.Chrome(service=service, options=chrome_options)
     
     oil_data = []
     
